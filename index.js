@@ -9,7 +9,7 @@ function getComputerChoice() {
 
 function playSingleRound(playerSelection, computerSelection) {
   // make players choice case insensitive
-  let playerSelection = playerSelection.toLowerCase();
+  playerSelection = playerSelection.toLowerCase();
 
   if (playerSelection === computerSelection) {
     return "Tie !";
@@ -30,3 +30,41 @@ function playSingleRound(playerSelection, computerSelection) {
     char.toUpperCase()
   )} beats ${playerSelection.replace(/\b\w/g, (char) => char.toUpperCase())}`;
 }
+
+function game() {
+  let playerSelection = "";
+  do {
+    playerSelection = prompt("Enter Rock/Paper/Scissors").toLowerCase();
+  } while (
+    playerSelection !== "rock" &&
+    playerSelection !== "paper" &&
+    playerSelection !== "scissors"
+  );
+
+  let player = 0;
+  let computer = 0;
+  for (let i = 0; i < 5; i++) {
+    if (i > 0) {
+      playerSelection = prompt("Enter Rock/Paper/Scissors");
+    }
+    const result = playSingleRound(playerSelection, getComputerChoice());
+    console.log(result);
+    if (result.substring(4, 7) === "Win") {
+      player++;
+    } else if (result.substring(4, 7) === "Los") {
+      computer++;
+    }
+  }
+
+  if (player === computer) {
+    console.log("Tie!");
+  }
+
+  if (player > computer) {
+    console.log(`You win, final score ${player}:${computer}`);
+  } else {
+    console.log(`You lose, final score ${player}:${computer}`);
+  }
+}
+
+game();
